@@ -169,6 +169,7 @@ class BookController extends Controller
         return response()->json($data,$data['code']);
     }
 
+    
 
     public function destroy($id, Request $request){
         
@@ -198,6 +199,68 @@ class BookController extends Controller
             
         }
 
+        return response()->json($data,$data['code']);
+    }
+
+
+    public function bookStatus($id, Request $request){
+
+        //Recoger datos por post
+        $json = $request->input('json', null);
+        $params_array = json_decode($json,true);
+        
+        //Datos para revolver
+        $data = array(
+            'code'      => 400,
+            'status'    => 'error',
+            'message'   => 'Datos enviados incorrectos'
+        );
+        
+        if(!empty($params_array)){
+            ////Validar datos
+            $validate = \Validator::make($params_array,[
+                'borrow'         => 'required',
+            ]);
+            
+            if($validate->fails()){
+                
+                $data['errors'] = $validate->errors();
+                return response()->json($data,$data['code']);
+                
+            }
+
+            //eliminar lo que no queremos actualizar
+            unset($params_array['id']);
+            unset($params_array['user_id']);
+            unset($params_array['category_id']);
+            unset($params_array['name']);
+            unset($params_array['publication_date']);
+            unset($params_array['author']);
+            unset($params_array['content']);
+            unset($params_array['created_at']);
+
+            
+
+            //Buscar el registro a actualizar
+            $book = Book::where('id',$id)
+            ->first();
+            
+            if(!empty($book) && is_object($book)){
+                
+                ////Actualizar el registro en concreto
+                $book->update($params_array);
+                
+                //Devolver data
+                $data = array(
+                    'code'   => 200,
+                    'status' => 'success',
+                    'post'   => $book,
+                    'change' => $params_array
+                );
+            }
+            
+        }
+        
         return response()->json($data,$data['code']);
     }
 

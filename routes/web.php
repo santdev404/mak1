@@ -32,6 +32,7 @@ Route::get('/pruebas/{nombre?}', function($nombre=null){
 Route::get('/test-orm','App\Http\Controllers\PruebasController@testOrm');
 
 
+
 //Rutas del API
 Route::get('/usuario/pruebas','App\Http\Controllers\UserController@pruebas');
 Route::get('/categoria/pruebas','App\Http\Controllers\CategoryController@pruebas');
@@ -48,4 +49,5 @@ Route::post('/api/login', 'App\Http\Controllers\UserController@login');
 Route::resource('/api/category', 'App\Http\Controllers\CategoryController');
 
 //Ruta de controlador de book
+Route::put('/api/book/status/{id}', 'App\Http\Controllers\BookController@bookStatus');
 Route::resource('/api/book', 'App\Http\Controllers\BookController');
