@@ -12,7 +12,7 @@ class Book extends Model
     protected $table = 'books';
 
     protected $fillable = [
-        'name','publication_date','category_id', 'author', 'borrow', 'borrow_user_id'
+        'name','publication_date','category_id', 'author', 'borrow', 'borrow_user_id', 'content'
     ];
 
     //Relacion de uno a muchos pero inversa (muchos a uno)

@@ -13,36 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Rutas de prueba
-Route::get('/', function () {
-    return view('welcome');
-    
-});
-
-Route::get('/pruebas/{nombre?}', function($nombre=null){
-    $text = $nombre;
-    
-    return view('pruebas', array(
-        'texto' => $text
-    ));
-
-});
 
 
-Route::get('/test-orm','App\Http\Controllers\PruebasController@testOrm');
-
-
-
-//Rutas del API
-Route::get('/usuario/pruebas','App\Http\Controllers\UserController@pruebas');
-Route::get('/categoria/pruebas','App\Http\Controllers\CategoryController@pruebas');
-Route::get('/libro/pruebas','App\Http\Controllers\BookController@pruebas');
-Route::get('/borrow/pruebas','App\Http\Controllers\BorrowController@pruebas');
-
-
-//Rutas controlador usuario
-Route::post('/api/register', 'App\Http\Controllers\UserController@register');
-Route::post('/api/login', 'App\Http\Controllers\UserController@login');
 
 
 //Ruta de controlador de categoria
@@ -51,3 +23,13 @@ Route::resource('/api/category', 'App\Http\Controllers\CategoryController');
 //Ruta de controlador de book
 Route::put('/api/book/status/{id}', 'App\Http\Controllers\BookController@bookStatus');
 Route::resource('/api/book', 'App\Http\Controllers\BookController');
+
+
+//Ruta de controllador book-user
+Route::get('/api/borrow/{id}','App\Http\Controllers\BorrowController@getUserByBookId');
+Route::put('/api/borrow/assign/{id}','App\Http\Controllers\BorrowController@updateAssignedTo');
+Route::put('/api/borrow/unassign/{id}','App\Http\Controllers\BorrowController@updateUnassignedTo');
+
+
+//Ruta de controlador user
+Route::get('/api/users','App\Http\Controllers\UserController@getUsers');
