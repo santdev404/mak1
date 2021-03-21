@@ -86,6 +86,7 @@ class BookController extends Controller
                 $book->publication_date = $params->publication_date;
                 $book->author           = $params->author;
                 $book->borrow           = 0;
+                $book->borrow_user_id   = 0;
                 
                 $book->save();
                 

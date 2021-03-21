@@ -54,58 +54,24 @@ class BorrowController extends Controller
 
     //Actualizar tabla book cuando se asigen a un usuario
 
-    public function updateAssignedTo($id, Request $request){
-
-        
+    public function updateAssignedTo($id, $user_id){
 
         //ID book
         //ID user
 
-        //Recoger datos por post
-        $json           = $request->input('json', null);
-        $params_array   = json_decode($json,true);
+        $book = DB::table('books')
+        ->where('id', $id)
+        ->update(['borrow' => 1, 'borrow_user_id' =>  $user_id]);
 
-
-        //Datos para revolver
+        //Devolver data
         $data = array(
-            'code'      => 400,
-            'status'    => 'error',
-            'message'   => 'Datos enviados incorrectos'
+            'code'   => 200,
+            'status' => 'success',
+            'book'   => $book
         );
         
-        if(!empty($params_array)){
-            ////Validar datos
-            $validate = \Validator::make($params_array,[
-                'borrow'            => 'required',
-                'borrow_user_id'    => 'required',
-
-            ]);
-            
-            if($validate->fails()){
-                
-                $data['errors'] = $validate->errors();
-                return response()->json($data,$data['code']);
-                
-            }
-
-            $book = DB::table('books')
-              ->where('id', $id)
-              ->update(['borrow' => $params_array['borrow'], 'borrow_user_id' =>  $params_array['borrow_user_id']]);
-             
-            if($book == 1){
-        
-                //Devolver data
-                $data = array(
-                    'code'   => 200,
-                    'status' => 'success',
-                    'book'   => $book,
-                    'change' => $params_array
-                );
-            }
-
-        }
-        
         return response()->json($data,$data['code']);
+
     }
     
     //Actualizar tabla book cuando el libre no este asignado a un usuario

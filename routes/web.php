@@ -27,7 +27,7 @@ Route::resource('/api/book', 'App\Http\Controllers\BookController');
 
 //Ruta de controllador book-user
 Route::get('/api/borrow/{id}','App\Http\Controllers\BorrowController@getUserByBookId');
-Route::put('/api/borrow/assign/{id}','App\Http\Controllers\BorrowController@updateAssignedTo');
+Route::put('/api/borrow/assign/{id}/{user_id}','App\Http\Controllers\BorrowController@updateAssignedTo');
 Route::put('/api/borrow/unassign/{id}','App\Http\Controllers\BorrowController@updateUnassignedTo');
 
 
