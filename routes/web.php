@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/api/category', 'App\Http\Controllers\CategoryController');
 
 //Ruta de controlador de book
+Route::get('/api/books','App\Http\Controllers\BookController@getBooks');
 Route::put('/api/book/status/{id}', 'App\Http\Controllers\BookController@bookStatus');
 Route::resource('/api/book', 'App\Http\Controllers\BookController');
 

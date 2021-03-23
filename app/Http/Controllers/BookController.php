@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Book;
 use App\Models\Category;
@@ -16,17 +17,22 @@ class BookController extends Controller
         //Buscar como paginar
         $books = Book::all()->load('category');
 
-        //$books = Book::all()->paginate(2)->load('category');
-
-        //$books = Book::paginate(10)->load('category');
-
-
-        
         return  response()->json([
             'code'      => 200,
             'status'    => 'success',
             'post'      => $books
         ]);
+    }
+
+
+    public function getBooks(){
+       
+        $books = Book::all()->load('category');
+
+        return  response()->json(
+            
+            $books
+        );
     }
 
     public function show($id){
