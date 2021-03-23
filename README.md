@@ -22,18 +22,29 @@ The next step is config the virtual host
 
 - At the '/opt/lampp/etc/extra' directory inside the file 'httpd-vhosts.conf', add the next code and save:
 
+```
 <VirtualHost *:80>
-    DocumentRoot "/opt/lampp/htdocs/project/public"
-    ServerName maniak.com.devel
-    ServerAlias www.maniak.devel
-    <Directory "/opt/lampp/htdocs/project/public">
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Order Deny,Allow
-        Allow from all
-    </Directory>
-</VirtualHost>
 
+    DocumentRoot "/opt/lampp/htdocs/project/public"
+
+    ServerName maniak.com.devel
+
+    ServerAlias www.maniak.devel
+
+    <Directory "/opt/lampp/htdocs/project/public">
+
+        Options Indexes FollowSymLinks
+
+        AllowOverride All
+
+        Order Deny,Allow
+
+        Allow from all
+
+    </Directory>
+
+</VirtualHost>
+```
 
 - At the '/etc' directory add the next line inside the hosts file and save:
 
