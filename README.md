@@ -1,63 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Maniak project
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The project have two github repositories, "mak1" for PHP Backend and "mak-front" for Angular Frontend.
+The projects establish communications each others through URL with API calls.
+Below are the instructions to setup all the tools and config all the requires php files. 
+I strongly recommend to perform all the installations on a machine with Ubuntu operational system.
 
-## About Laravel
+## PHP
+Please follow the below instrution to setup the PHP enviroment:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Install LAMP last version, in /opt/ directory, with the default configurations (Mysql, default root user credentials).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Database credentials
+user: root
+pass: 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Create a directory "project" in '/opt/lampp/htdocs/'
+- Install Componser last version.
+- Once LAMP and Composer tools are installed, download the "santdev404/mak1" php repository in '/opt/lampp/htdocs/project' directory.
 
-## Learning Laravel
+The next step is config the virtual host
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- At the '/opt/lampp/etc/extra' directory inside the file 'httpd-vhosts.conf', add the next code and save:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<VirtualHost *:80>
+    DocumentRoot "/opt/lampp/htdocs/project/public"
+    ServerName maniak.com.devel
+    ServerAlias www.maniak.devel
+    <Directory "/opt/lampp/htdocs/project/public">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Order Deny,Allow
+        Allow from all
+    </Directory>
+</VirtualHost>
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- At the '/etc' directory add the next line inside the hosts file and save:
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+127.0.0.1       maniak.com.devel
 
-## Contributing
+- Restart the php apache server.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Then follow the next steps:
 
-## Code of Conduct
+- Starts the Apache server and Mysql throught LAMP console.
+- Once the apache server and mysql database are on, open a google chrome browser and type this url 'http://localhost/phpmyadmin/'
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Database setup
 
-## Security Vulnerabilities
+In order to create the database, please follow the next instructions:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Open the file 'database.sql', from the project.
+- Copy all the content of the file 'database.sql'.
+- On mysql tab in google chrome select the option SQL.
+- Paste all the content of the 'database.sql'.
+- Run all the commands at once.
+- Check if the database maniank and all the tables were created.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# mak1
+## Angular
+
+The next step need to be follow to install the angular enviroment.
+
+- Download the last Node version.
+- Create a directory "project-angular" in '/opt/lampp/htdocs/'
+- Download the "santdev404/mak-front" angular repository in '/opt/lampp/htdocs/project-angular' directory.
+- In the '/opt/lampp/htdocs/project-angular' install all the dependencies with 'npm update --force'
+- On terminal starts the project with 'npm serve' command. 
